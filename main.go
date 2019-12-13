@@ -40,6 +40,8 @@ import (
 	"github.com/iawia002/annie/utils"
 )
 
+var userAgent string
+
 func init() {
 	flag.BoolVar(&config.Debug, "d", false, "Debug mode")
 	flag.BoolVar(&config.Version, "v", false, "Show version")
@@ -84,6 +86,7 @@ func init() {
 	// youtube
 	flag.BoolVar(&config.YouTubeStream2, "ytb-stream2", false, "Use data in url_encoded_fmt_stream_map")
 	flag.BoolVar(&config.Verbose, "verbose", false, "verbose mode")
+	flag.StringVar(&userAgent, "ua", "", "user agent")
 }
 
 func printError(url string, err error) {
@@ -200,6 +203,9 @@ func main() {
 	}
 	if config.Debug {
 		utils.PrintVersion()
+	}
+	if userAgent != "" {
+		config.FakeHeaders["User-Agent"] = userAgent
 	}
 	if config.File != "" {
 		file, err := os.Open(config.File)
