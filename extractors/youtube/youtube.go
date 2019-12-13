@@ -129,6 +129,8 @@ func youtubeDownload(uri string) downloader.Data {
 		} else {
 			return downloader.EmptyData(uri, extractors.ErrURLParseFailed)
 		}
+	} else if strings.Contains(html, "liveStreamability") {
+		return downloader.EmptyData(uri, fmt.Errorf("this is a live stream"))
 	}
 
 	if config.ExtractedData {
@@ -143,9 +145,9 @@ func youtubeDownload(uri string) downloader.Data {
 
 	if config.ExtractedData {
 		fmt.Printf("get title: %s\n", title)
-		fmt.Printf("get Stream: %#v\n", youtube.Args.Stream)
+		fmt.Printf("get Stream: %#v\n\n", youtube.Args.Stream)
 		fmt.Printf("get Stream2: %#v\n", youtube.Args.Stream2)
-		fmt.Printf("get PlayerResponse: %#v\n", youtube.Args.PlayerResponse)
+		fmt.Printf("get PlayerResponse: %#v\n\n", youtube.Args.PlayerResponse)
 	}
 
 	streams, err := extractVideoURLS(youtube, uri)
@@ -270,10 +272,10 @@ func proccessNormalStream(youtubeStreams []string, data youtubeData, referer str
 	for _, s := range youtubeStreams {
 		if s == "" {
 			//skip empty stream URL
-			continue
-			//return nil, fmt.Errorf("empty stream URL")
+			//continue
+			return fmt.Errorf("empty stream URL"), true
 		}
-		if config.Debug {
+		if config.ExtractedData {
 			fmt.Printf("youtube.proccessNormalStream(): begin parse stream: %s\n", s)
 		}
 		stream, err := url.ParseQuery(s)

@@ -206,7 +206,7 @@ func Download(v Data, refer string, chunkSizeMB int) error {
 		return nil
 	}
 
-	utils.PrintVerbose("downloader.Download(): start download: %#v", data.URLs)
+	utils.PrintVerbose("downloader.Download(): begin download")
 
 	// Use aria2 rpc to download
 	if config.UseAria2RPC {
