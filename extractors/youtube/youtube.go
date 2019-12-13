@@ -244,7 +244,7 @@ func extractVideoURLS(data youtubeData, referer string) (map[string]downloader.S
 			utils.PrintVerbose("youtube.extractVideoURLS(): get quality: %s\n", quality)
 		}
 	} else {
-		err, done := proccessNormalStream(youtubeStreams, ext, data, referer, audio, streams)
+		err, done := proccessNormalStream(youtubeStreams, data, referer, &audio, streams)
 		if done {
 			return streams, err
 		}
@@ -265,7 +265,8 @@ func extractVideoURLS(data youtubeData, referer string) (map[string]downloader.S
 	return streams, nil
 }
 
-func proccessNormalStream(youtubeStreams []string, ext string, data youtubeData, referer string, audio downloader.URL, streams map[string]downloader.Stream) (error, bool) {
+func proccessNormalStream(youtubeStreams []string, data youtubeData, referer string, audio *downloader.URL, streams map[string]downloader.Stream) (error, bool) {
+	var ext string
 	for _, s := range youtubeStreams {
 		if s == "" {
 			//skip empty stream URL
@@ -320,7 +321,7 @@ func proccessNormalStream(youtubeStreams []string, ext string, data youtubeData,
 		}
 		if isAudio {
 			// Audio data for merging with video
-			audio = urlData
+			*audio = urlData
 		}
 		streams[itag] = downloader.Stream{
 			URLs:    []downloader.URL{urlData},
