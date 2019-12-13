@@ -177,6 +177,7 @@ func Save(
 
 // Download download urls
 func Download(v Data, refer string, chunkSizeMB int) error {
+	utils.PrintVerbose("downloader.Download(): start download: %s", v.URL)
 	v.genSortedStreams()
 	if config.ExtractedData {
 		jsonData, _ := json.MarshalIndent(v, "", "    ")

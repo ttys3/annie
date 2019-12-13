@@ -83,6 +83,7 @@ func init() {
 	flag.StringVar(&config.YoukuPassword, "password", "", "Youku password")
 	// youtube
 	flag.BoolVar(&config.YouTubeStream2, "ytb-stream2", false, "Use data in url_encoded_fmt_stream_map")
+	flag.BoolVar(&config.Verbose, "verbose", false, "verbose mode")
 }
 
 func printError(url string, err error) {

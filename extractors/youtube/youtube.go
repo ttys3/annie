@@ -34,6 +34,7 @@ const referer = "https://www.youtube.com"
 
 // Extract is the main function for extracting data
 func Extract(uri string) ([]downloader.Data, error) {
+	utils.PrintVerbose("youtube.Extract(): begin parse: %s\n", uri)
 	var err error
 	if !config.Playlist {
 		return []downloader.Data{youtubeDownload(uri)}, nil
@@ -127,6 +128,7 @@ func youtubeDownload(uri string) downloader.Data {
 }
 
 func extractVideoURLS(data youtubeData, referer string) (map[string]downloader.Stream, error) {
+	utils.PrintVerbose("youtube.extractVideoURLS(): begin\n")
 	var youtubeStreams []string
 	if config.YouTubeStream2 || data.Args.Stream == "" {
 		youtubeStreams = strings.Split(data.Args.Stream2, ",")
@@ -138,6 +140,7 @@ func extractVideoURLS(data youtubeData, referer string) (map[string]downloader.S
 	streams := map[string]downloader.Stream{}
 
 	for _, s := range youtubeStreams {
+		//fmt.Printf("extractVideoURLS(): begin parse :%s\n", s)
 		stream, err := url.ParseQuery(s)
 		if err != nil {
 			return nil, err
@@ -190,6 +193,7 @@ func extractVideoURLS(data youtubeData, referer string) (map[string]downloader.S
 			Size:    size,
 			Quality: quality,
 		}
+		utils.PrintVerbose("youtube.extractVideoURLS(): get quality: %s\n", quality)
 	}
 
 	// `url_encoded_fmt_stream_map`

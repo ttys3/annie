@@ -57,6 +57,8 @@ var (
 	RetryTimes int
 	// YouTubeStream2 will use data in `url_encoded_fmt_stream_map`
 	YouTubeStream2 bool
+	// verbose log message
+	Verbose bool
 )
 
 // FakeHeaders fake http headers

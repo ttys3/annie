@@ -284,3 +284,9 @@ func Range(min, max int) []int {
 	}
 	return items
 }
+
+func PrintVerbose(format string, a ...interface{}) {
+	if config.Verbose {
+		fmt.Printf(format, a...)
+	}
+}
