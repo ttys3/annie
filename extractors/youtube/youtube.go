@@ -131,7 +131,7 @@ func youtubeDownload(uri string) downloader.Data {
 		}
 	}
 
-	if config.Debug {
+	if config.ExtractedData {
 		//fmt.Printf("ytplayer[1]: %s\n", ytplayer[1])
 	}
 
@@ -141,7 +141,7 @@ func youtubeDownload(uri string) downloader.Data {
 	}
 	title := utils.GetStringFromJson(youtube.Args.PlayerResponse, "videoDetails.title")
 
-	if config.Debug {
+	if config.ExtractedData {
 		fmt.Printf("get title: %s\n", title)
 		fmt.Printf("get Stream: %#v\n", youtube.Args.Stream)
 		fmt.Printf("get Stream2: %#v\n", youtube.Args.Stream2)
@@ -181,7 +181,7 @@ func extractVideoURLS(data youtubeData, referer string) (map[string]downloader.S
 		maybeStreamData = utils.GetArrayFromJson(data.Args.PlayerResponse, "streamingData.formats")
 	}
 
-	if config.Debug {
+	if config.ExtractedData {
 		fmt.Printf("youtubeStreams: %#v\n", youtubeStreams)
 		fmt.Printf("maybeStreamData: %#v\n", maybeStreamData)
 	}
