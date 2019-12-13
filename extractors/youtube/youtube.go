@@ -34,6 +34,7 @@ type youtubeData struct {
 type youtubeStream struct {
 	Itag             int    `json:"itag"`
 	URL              string `json:"url"`
+	Cipher			 string `json:"cipher"`
 	MimeType         string `json:"mimeType"`
 	Bitrate          int    `json:"bitrate"`
 	Width            int    `json:"width"`
@@ -213,9 +214,21 @@ func extractVideoURLS(data youtubeData, referer string) (map[string]downloader.S
 				ext = exts[2]
 			}
 
+			var e error
+			realURL := s.URL
+			if realURL == "" && s.Cipher != "" {
+				streamQuery, err := url.ParseQuery(s.Cipher)
+				if err != nil {
+					return nil, err
+				}
+				realURL, e = getDownloadURL(streamQuery, data.Assets.JS)
+				if e != nil {
+					return nil, e
+				}
+			}
 			cl, _ := strconv.Atoi(s.ContentLength)
 			urlData := downloader.URL{
-				URL:  s.URL,
+				URL:  realURL,
 				Size: int64(cl),
 				Ext:  ext,
 			}

@@ -177,7 +177,6 @@ func Save(
 
 // Download download urls
 func Download(v Data, refer string, chunkSizeMB int) error {
-	utils.PrintVerbose("downloader.Download(): start download: %s", v.URL)
 	v.genSortedStreams()
 	if config.ExtractedData {
 		jsonData, _ := json.MarshalIndent(v, "", "    ")
@@ -206,6 +205,9 @@ func Download(v Data, refer string, chunkSizeMB int) error {
 	if config.InfoOnly {
 		return nil
 	}
+
+	utils.PrintVerbose("downloader.Download(): start download: %#v", data.URLs)
+
 	// Use aria2 rpc to download
 	if config.UseAria2RPC {
 		rpcData := Aria2RPCData{
