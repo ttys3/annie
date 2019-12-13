@@ -273,7 +273,7 @@ func proccessNormalStream(youtubeStreams []string, ext string, data youtubeData,
 			//return nil, fmt.Errorf("empty stream URL")
 		}
 		if config.Debug {
-			fmt.Printf("extractVideoURLS(): begin parse stream: %s\n", s)
+			fmt.Printf("youtube.proccessNormalStream(): begin parse stream: %s\n", s)
 		}
 		stream, err := url.ParseQuery(s)
 		if err != nil {
@@ -327,7 +327,7 @@ func proccessNormalStream(youtubeStreams []string, ext string, data youtubeData,
 			Size:    size,
 			Quality: quality,
 		}
-		utils.PrintVerbose("youtube.extractVideoURLS(): get quality: %s\n", quality)
+		utils.PrintVerbose("youtube.proccessNormalStream(): get quality: %s\n", quality)
 	}
 
 	// `url_encoded_fmt_stream_map`
