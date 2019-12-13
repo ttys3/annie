@@ -30,6 +30,10 @@ func GetStringFromJson(json, path string) string {
 	return gjson.Get(json, path).String()
 }
 
+func GetArrayFromJson(json, path string) []gjson.Result {
+	return gjson.Get(json, path).Array()
+}
+
 // MatchOneOf match one of the patterns
 func MatchOneOf(text string, patterns ...string) []string {
 	var (
