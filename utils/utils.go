@@ -156,9 +156,11 @@ func ParseInputFile(r io.Reader) []string {
 	var temp []string
 	totalLines := 0
 	for scanner.Scan() {
-		totalLines++
 		universalURL := strings.TrimSpace(scanner.Text())
-		temp = append(temp, universalURL)
+		if universalURL != "" {
+			totalLines++
+			temp = append(temp, universalURL)
+		}
 	}
 
 	var wantedItems []int
