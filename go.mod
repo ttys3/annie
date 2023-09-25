@@ -14,7 +14,6 @@ require (
 	github.com/mattn/go-runewidth v0.0.2 // indirect
 	github.com/stretchr/testify v1.4.0 // indirect
 	github.com/tidwall/gjson v1.3.2
-	golang.org/x/net v0.0.0-20180621144259-afe8f62b1d6b
-	golang.org/x/sys v0.0.0-20180622082034-63fc586f45fe // indirect
+	golang.org/x/net v0.7.0
 	gopkg.in/cheggaaa/pb.v1 v1.0.28 // indirect
 )
